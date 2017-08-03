@@ -4,7 +4,7 @@ import com.avos.avoscloud.AVCloud
 import com.avos.avoscloud.AVException
 import com.avos.avoscloud.FunctionCallback
 
-object UserUtils {
+object UserUils {
 
     private val COLUMN_USER = "user"
     private val COLUMN_PASSWORD = "password"
@@ -28,8 +28,9 @@ object UserUtils {
                 object : FunctionCallback<Map<String, String>>() {
                     public override fun done(result: Map<String, String>?, e: AVException?) {
                         if (e != null) {
-
+                            System.out.println("response " + e)
                         } else {
+                            System.out.println("response " + result)
                         }
                     }
                 })
