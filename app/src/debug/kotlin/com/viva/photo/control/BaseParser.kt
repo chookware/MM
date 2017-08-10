@@ -5,11 +5,11 @@ import org.jsoup.nodes.Document
 import java.io.IOException
 import java.lang.Exception
 
-open abstract class BaseParser {
+open class BaseParser {
 
-    protected var doc: Document? = null
+    var doc: Document? = null
 
-    constructor(url: String) {
+    constructor(url: String?) {
         try {
             doc = Jsoup.connect(url).timeout(3000).get()
         } catch (e: Exception) {
@@ -21,6 +21,8 @@ open abstract class BaseParser {
         return doc != null
     }
 
-    abstract fun stringOfHtml(): String?
+    open fun stringOfHtml(): String? {
+        return null
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.viva.photo.control
 
+import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
@@ -18,16 +19,15 @@ class LoadHtml {
         dispose?.dispose()
     }
 
-    fun load() {
+    fun load(onLoadListener: OnLoadListener?) {
         Observable.create(ObservableOnSubscribe<Any> {
             it ->
             run {
                 var paraser = YeskyParser()
-                var result = paraser.stringOfHtml()
+                var result = paraser.getMenu()
                 if (result != null) {
                     it.onNext(result)
                 } else {
-                    it.onNext("")
                     it.onComplete()
                 }
             }
@@ -36,14 +36,15 @@ class LoadHtml {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<Any> {
                     override fun onNext(t: Any?) {
-                        LogUtils.v("sgc " + t as String)
+                        onLoadListener?.onFinish(t)
                     }
 
                     override fun onComplete() {
+                        onLoadListener?.onFinish(null)
                     }
 
                     override fun onError(e: Throwable?) {
-
+                        onLoadListener?.onFinish(null)
                     }
 
                     override fun onSubscribe(d: Disposable?) {
@@ -57,4 +58,8 @@ class LoadHtml {
                 })
     }
 
+}
+
+interface OnLoadListener {
+    fun onFinish(any: Any?)
 }

@@ -11,8 +11,6 @@ class TestedActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_test)
 
-        var loadHtml = LoadHtml()
-        loadHtml.load()
     }
 
 }
