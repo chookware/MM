@@ -1,5 +1,6 @@
 package com.viva.photo.control
 
+import com.viva.photo.utils.LogUtils
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -21,19 +22,24 @@ class LoadHtml {
         Observable.create(ObservableOnSubscribe<Any> {
             it ->
             run {
-                var paraser = Paraser()
-                it.onNext(paraser.test())
+                var paraser = YeskyParser()
+                var result = paraser.stringOfHtml()
+                if (result != null) {
+                    it.onNext(result)
+                } else {
+                    it.onNext("")
+                    it.onComplete()
+                }
             }
         })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<Any> {
                     override fun onNext(t: Any?) {
-                        println("sgc " + t as String)
+                        LogUtils.v("sgc " + t as String)
                     }
 
                     override fun onComplete() {
-
                     }
 
                     override fun onError(e: Throwable?) {

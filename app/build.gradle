@@ -25,8 +25,9 @@ android {
     buildTypes {
 
         debug {
-            buildConfigField "String", "APPID", "\"fAIao8DTjaeMHOOqtVrrYFDx-gzGzoHsz\""
-            buildConfigField "String", "APPKEY", "\"g5irxsjSd7gnt75oA74kSTpn\""
+            buildConfigField "String", "LEAN_CLOUD_APPID", "\"fAIao8DTjaeMHOOqtVrrYFDx-gzGzoHsz\""
+            buildConfigField "String", "LEAN_CLOUD_APPKEY", "\"g5irxsjSd7gnt75oA74kSTpn\""
+            buildConfigField "String", "BMOB_APPID", "\"ab7d5d80b0c2d5c3af76f60b06f8eb18\""
         }
 
         release {
