@@ -2,6 +2,7 @@ package com.viva.photo.control
 
 import com.viva.photo.control.info.MenuInfo
 
+
 class YeskyParser: BaseParser {
 
     constructor():super("http://pic.yesky.com")
