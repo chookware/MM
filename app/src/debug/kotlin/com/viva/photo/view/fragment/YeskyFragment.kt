@@ -12,6 +12,10 @@ import android.view.View
 import android.view.ViewGroup
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
 import com.viva.photo.R
+import com.viva.photo.control.LoadHtml
+import com.viva.photo.control.OnLoadListener
+import com.viva.photo.control.info.MenuInfo
+import com.viva.photo.utils.LogUtils
 import com.viva.photo.view.adapter.LayoutAdapter
 import com.viva.photo.view.animation.MyItemDecoration
 
@@ -24,8 +28,19 @@ class YeskyFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
 //        initRecyclerView(view?.findViewById(R.id.layout_fragment_sy_recyclerview) as RecyclerView)
-        initViewPager(view?.findViewById(R.id.layout_fragment_sy_recyclerview) as RecyclerViewPager)
+        var recyclerView = view?.findViewById(R.id.layout_fragment_sy_recyclerview) as RecyclerViewPager
+        initViewPager(recyclerView)
+        var loadHtml = LoadHtml()
+        loadHtml.load(object : OnLoadListener {
+            override fun onFinish(any: Any?) {
+                if (any is ArrayList<*>) {
+                    var array = ArrayList<Any>()
+                    recyclerView.adapter = LayoutAdapter(activity, recyclerView, array)
+                }
+                LogUtils.v("sgc finish")
+            }
 
+        })
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView?) {
@@ -52,7 +67,7 @@ class YeskyFragment : Fragment() {
         var layout = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL,
                 false)
         mRecyclerView.layoutManager = layout
-        mRecyclerView.adapter = LayoutAdapter(activity, mRecyclerView)
+//        mRecyclerView.adapter = LayoutAdapter(activity, mRecyclerView, null)
         mRecyclerView.setHasFixedSize(true)
         mRecyclerView.isLongClickable = true
         mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {

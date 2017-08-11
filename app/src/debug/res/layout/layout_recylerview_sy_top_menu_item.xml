@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <View
+    <ImageView
+        android:id="@+id/layout_recylerview_sy_top_menu_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#00f"/>

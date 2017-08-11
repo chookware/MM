@@ -22,6 +22,9 @@ class YeskyParser: BaseParser {
                 if (childLinks == null || childLinks?.size == 0) {
                     childLinks = childParser.doc?.select("div.mode_box")
                 }
+                if (childLinks == null || childLinks?.size == 0) {
+                    childLinks = childParser.doc?.select("div.star_box")
+                }
                 if (childLinks != null && childLinks.size > 0) {
                     menuInfo.image = childLinks?.get(0)?.getElementsByTag("img")?.get(0)?.attr("src")
                 }
