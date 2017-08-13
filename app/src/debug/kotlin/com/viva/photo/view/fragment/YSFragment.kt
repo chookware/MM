@@ -11,6 +11,7 @@ import com.viva.photo.R
 import com.viva.photo.control.LoadHtml
 import com.viva.photo.control.OnLoadListener
 import com.viva.photo.control.info.MenuInfo
+import com.viva.photo.utils.LogUtils
 import com.viva.photo.view.adapter.MenuCardAdapter
 
 class YSFragment(): Fragment() {
@@ -36,6 +37,7 @@ class YSFragment(): Fragment() {
         var loadHtml = LoadHtml()
         loadHtml.load(object : OnLoadListener {
             override fun onFinish(any: Any?) {
+                LogUtils.v("sgc any: " + any)
                 if (any is MutableList<*>) {
                     menuAdapter.data = any as MutableList<MenuInfo>
                     menuAdapter.notifyDataSetChanged()

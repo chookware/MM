@@ -1,6 +1,7 @@
 package com.viva.photo.control
 
 import com.viva.photo.control.info.MenuInfo
+import com.viva.photo.utils.LogUtils
 
 
 class YeskyParser: BaseParser {
@@ -16,7 +17,7 @@ class YeskyParser: BaseParser {
         var array = arrayListOf<MenuInfo>()
         if (links != null) {
             for (element in links) {
-                var menuInfo = MenuInfo(element?.text(), element?.attr("href"), null)
+                var menuInfo = MenuInfo(element?.text(), element?.attr("href"), null, mutableListOf())
                 var childParser = BaseParser(menuInfo.url)
                 var childLinks = childParser.doc?.select("div.lb_box")
                 if (childLinks == null || childLinks?.size == 0) {
@@ -27,6 +28,18 @@ class YeskyParser: BaseParser {
                 }
                 if (childLinks != null && childLinks.size > 0) {
                     menuInfo.image = childLinks?.get(0)?.getElementsByTag("img")?.get(0)?.attr("src")
+                    var items = childLinks?.get(0)?.getElementsByTag("dt")
+                    items?.forEach { i ->
+                        if (menuInfo.item!!.size >= 10) {
+                        } else {
+                            menuInfo.item?.add(MenuInfo(i.attr("alt"), i.attr("href"), null, null))
+                        }
+                    }
+                    try {
+                        childParser.clear()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
                 }
                 array.add(menuInfo)
             }

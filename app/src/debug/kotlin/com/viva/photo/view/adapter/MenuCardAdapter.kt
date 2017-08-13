@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
 
@@ -30,7 +32,8 @@ class MenuCardAdapter(): RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
         if (data != null) {
             if (data!!.size > position) {
                 var menuInfo = data!![position]
-//                holder?.title?.text = menuInfo.title
+                holder?.title?.text = menuInfo.title
+                Glide.with(holder?.itemView).load(menuInfo.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
             }
         }
 

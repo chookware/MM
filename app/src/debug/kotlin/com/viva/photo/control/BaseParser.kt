@@ -1,5 +1,6 @@
 package com.viva.photo.control
 
+import com.viva.photo.utils.LogUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import java.io.IOException
@@ -23,6 +24,10 @@ open class BaseParser {
 
     open fun stringOfHtml(): String? {
         return null
+    }
+
+    fun clear() {
+        doc?.empty()
     }
 
 }
