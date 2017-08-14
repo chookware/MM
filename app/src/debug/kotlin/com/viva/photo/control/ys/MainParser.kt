@@ -1,20 +1,17 @@
-package com.viva.photo.control
+package com.viva.photo.control.ys
 
+import com.viva.photo.control.BaseParser
 import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
 
 
-class YeskyParser: BaseParser {
+class MainParser : BaseParser {
 
     constructor():super("http://pic.yesky.com")
 
-    override fun stringOfHtml(): String? {
-        return doc?.toString()
-    }
-
-    fun getMenu(): ArrayList<MenuInfo>? {
+    override fun parser(): ArrayList<Any>? {
         var links = doc?.select("ul.nav_left")?.get(0)?.getElementsByTag("a")
-        var array = arrayListOf<MenuInfo>()
+        var array = arrayListOf<Any>()
         if (links != null) {
             for (element in links) {
                 var menuInfo = MenuInfo(element?.text(), element?.attr("href"), null, mutableListOf())
@@ -32,7 +29,9 @@ class YeskyParser: BaseParser {
                     items?.forEach { i ->
                         if (menuInfo.item!!.size >= 10) {
                         } else {
-                            menuInfo.item?.add(MenuInfo(i.attr("alt"), i.attr("href"), null, null))
+                            var url = i.getElementsByTag("a")?.attr("href")
+                            var title = i.getElementsByTag("img")?.attr("alt")
+                            menuInfo.item?.add(MenuInfo(title, url, null, null))
                         }
                     }
                     try {

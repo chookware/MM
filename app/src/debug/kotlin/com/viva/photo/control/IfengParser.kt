@@ -8,10 +8,6 @@ class IfengParser : BaseParser {
         return doc?.title()
     }
 
-    override fun stringOfHtml(): String? {
-        return doc?.toString()
-    }
-
     fun getTopNews(): String? {
         var element = doc?.getElementById("headLineDefault")?.select("ul.FNewMTopLis")
         var links = element?.select("li")

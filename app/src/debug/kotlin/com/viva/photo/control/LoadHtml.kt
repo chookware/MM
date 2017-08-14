@@ -1,7 +1,6 @@
 package com.viva.photo.control
 
-import com.viva.photo.control.info.MenuInfo
-import com.viva.photo.utils.LogUtils
+import com.viva.photo.control.ys.MainParser
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -19,12 +18,12 @@ class LoadHtml {
         dispose?.dispose()
     }
 
-    fun load(onLoadListener: OnLoadListener?) {
+    fun load(parser: BaseParser?, onLoadListener: OnLoadListener?) {
         Observable.create(ObservableOnSubscribe<Any> {
             it ->
             run {
-                var paraser = YeskyParser()
-                var result = paraser.getMenu()
+                parser?.connect()
+                var result = parser?.parser()
                 if (result != null) {
                     it.onNext(result)
                 } else {

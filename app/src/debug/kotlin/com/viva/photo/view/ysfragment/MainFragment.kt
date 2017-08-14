@@ -1,4 +1,4 @@
-package com.viva.photo.view.fragment
+package com.viva.photo.view.ysfragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -11,10 +11,13 @@ import com.viva.photo.R
 import com.viva.photo.control.LoadHtml
 import com.viva.photo.control.OnLoadListener
 import com.viva.photo.control.info.MenuInfo
+import com.viva.photo.control.ys.MainParser
 import com.viva.photo.utils.LogUtils
 import com.viva.photo.view.adapter.MenuCardAdapter
 
-class YSFragment(): Fragment() {
+class MainFragment(): Fragment() {
+
+    private var menuAdapter: MenuCardAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.layout_fragment_ys, null)
@@ -31,20 +34,25 @@ class YSFragment(): Fragment() {
                 false)
         recyclerView?.layoutManager = layout
 
-        var menuAdapter = MenuCardAdapter()
+        menuAdapter = MenuCardAdapter()
+        menuAdapter?.parentFragment = this
         recyclerView?.adapter = menuAdapter
 
         var loadHtml = LoadHtml()
-        loadHtml.load(object : OnLoadListener {
+        loadHtml.load(MainParser(), object : OnLoadListener {
             override fun onFinish(any: Any?) {
-                LogUtils.v("sgc any: " + any)
                 if (any is MutableList<*>) {
-                    menuAdapter.data = any as MutableList<MenuInfo>
-                    menuAdapter.notifyDataSetChanged()
+                    menuAdapter?.data = any as MutableList<MenuInfo>
+                    menuAdapter?.notifyDataSetChanged()
                 }
             }
 
         })
+    }
+
+    override fun onDestroy() {
+        menuAdapter?.destroy()
+        super.onDestroy()
     }
 
 }

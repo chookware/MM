@@ -1,4 +1,4 @@
-package com.viva.photo.view.fragment
+package com.viva.photo.view.ysfragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -31,13 +31,12 @@ class YeskyFragment : Fragment() {
         var recyclerView = view?.findViewById(R.id.layout_fragment_sy_recyclerview) as RecyclerViewPager
         initViewPager(recyclerView)
         var loadHtml = LoadHtml()
-        loadHtml.load(object : OnLoadListener {
+        loadHtml.load(null, object : OnLoadListener {
             override fun onFinish(any: Any?) {
                 if (any is ArrayList<*>) {
                     var array = ArrayList<Any>()
                     recyclerView.adapter = LayoutAdapter(activity, recyclerView, array)
                 }
-                LogUtils.v("sgc finish")
             }
 
         })

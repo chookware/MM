@@ -56,7 +56,6 @@ class LayoutAdapter: RecyclerView.Adapter<SimpleViewHolder> {
             if ( mItems?.get(position) is MenuInfo) {
                 var menuInfo = mItems?.get(position) as MenuInfo
                 Glide.with(mRecyclerView).load(menuInfo.image).into(holder.title)
-                LogUtils.v("sgc load " + menuInfo.image)
             }
         }
         val itemView = holder.itemView

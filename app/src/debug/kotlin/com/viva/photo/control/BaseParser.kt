@@ -9,8 +9,13 @@ import java.lang.Exception
 open class BaseParser {
 
     var doc: Document? = null
+    private var url: String? = null
 
     constructor(url: String?) {
+        this.url = url
+    }
+
+    fun connect() {
         try {
             doc = Jsoup.connect(url).timeout(3000).get()
         } catch (e: Exception) {
@@ -22,7 +27,11 @@ open class BaseParser {
         return doc != null
     }
 
-    open fun stringOfHtml(): String? {
+    fun stringOfHtml(): String? {
+        return doc?.toString()
+    }
+
+    open fun parser(): ArrayList<Any>? {
         return null
     }
 
