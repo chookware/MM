@@ -14,22 +14,25 @@ import com.viva.photo.R
 import com.viva.photo.control.LoadHtml
 import com.viva.photo.control.OnLoadListener
 import com.viva.photo.control.ys.CatalogParser
+import com.viva.photo.utils.LogUtils
 import com.viva.photo.view.adapter.CatalogAdapter
 import com.viva.photo.view.animation.MyItemDecoration
 
-@Route("catalog")
+
 class CatalogFragment: Fragment() {
 
-    @InjectParam(key = "url")
-    var url: String? = null
+    var recyclerView: RecyclerView? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.layout_fragment_catalog, null)
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        var recyclerView = view?.findViewById(R.id.layout_fragment_catalog_recyclerview) as RecyclerView
+        recyclerView = view?.findViewById(R.id.layout_fragment_catalog_recyclerview) as RecyclerView
         initRecyclerView(recyclerView)
+    }
+
+    fun load(url: String?) {
         var loadHtml = LoadHtml()
         loadHtml.load(CatalogParser(url/*"http://pic.yesky.com/c/6_18332.shtml"*/), object : OnLoadListener {
             override fun onFinish(any: Any?) {

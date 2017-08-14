@@ -16,6 +16,7 @@ class MainParser : BaseParser {
             for (element in links) {
                 var menuInfo = MenuInfo(element?.text(), element?.attr("href"), null, mutableListOf())
                 var childParser = BaseParser(menuInfo.url)
+                childParser.connect()
                 var childLinks = childParser.doc?.select("div.lb_box")
                 if (childLinks == null || childLinks?.size == 0) {
                     childLinks = childParser.doc?.select("div.mode_box")

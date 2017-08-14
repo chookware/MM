@@ -27,7 +27,7 @@ class TitleItemAdapter : RecyclerView.Adapter<TitleItemAdapter.ViewCache>() {
         if (data != null && data!!.size > position) {
             var menuInfo = data!![position]
             holder?.title?.tag = menuInfo.url
-//            holder?.title?.text = menuInfo.title
+            holder?.title?.text = menuInfo.title
             holder?.title?.setOnClickListener {
                 i ->
                 var url = i.tag as String

@@ -2,6 +2,7 @@ package com.viva.photo
 
 import android.app.Application
 import com.avos.avoscloud.*
+import com.chenenyu.router.Router
 import com.viva.photo.view.activity.PushCallBackActivity
 
 class MyLeanCloudApp : Application() {
@@ -20,6 +21,10 @@ class MyLeanCloudApp : Application() {
 
         })
         PushService.setDefaultPushCallback(this, PushCallBackActivity::class.java)
+
+        // 初始化
+        Router.initialize(this)
+        // 开启log
     }
 
 }

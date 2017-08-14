@@ -19,12 +19,20 @@ class CatalogAdapter: RecyclerView.Adapter<CatalogAdapter.ViewCache>() {
             var catalogInfo = data!![position] as CatalogInfo
             holder?.title?.text = catalogInfo?.title
             holder?.extra?.text = catalogInfo?.extra
-            Glide.with(holder?.itemView).load(holder?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewCache {
         var viewCache = ViewCache(View.inflate(parent?.context, R.layout.layout_catalog_item, null))
+        var layoutParams = viewCache.itemView.layoutParams
+        if (layoutParams == null) {
+            layoutParams = ViewGroup.LayoutParams(parent!!.width / 2, parent!!.height / 3)
+        } else {
+            layoutParams.width = parent!!.width / 2
+            layoutParams.height = parent!!.height / 3
+        }
+        viewCache.itemView.layoutParams = layoutParams
         return viewCache
     }
 

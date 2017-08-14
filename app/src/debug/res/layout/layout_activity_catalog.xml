@@ -2,6 +2,7 @@
 <fragment xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:name="com.viva.photo.view.ysfragment.MainFragment">
+    android:name="com.viva.photo.view.ysfragment.CatalogFragment"
+    android:tag="catalog">
 
 </fragment>
