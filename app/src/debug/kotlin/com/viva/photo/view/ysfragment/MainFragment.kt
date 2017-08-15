@@ -40,11 +40,15 @@ class MainFragment(): Fragment() {
 
         var loadHtml = LoadHtml()
         loadHtml.load(MainParser(), object : OnLoadListener {
-            override fun onFinish(any: Any?) {
+            override fun onNext(any: Any?) {
                 if (any is MutableList<*>) {
                     menuAdapter?.data = any as MutableList<MenuInfo>
                     menuAdapter?.notifyDataSetChanged()
                 }
+             }
+
+            override fun onFinish() {
+
             }
 
         })

@@ -12,14 +12,27 @@ import com.viva.photo.control.info.CatalogInfo
 
 class CatalogAdapter: RecyclerView.Adapter<CatalogAdapter.ViewCache>() {
 
+    private var recylcerView: RecyclerView? = null
     var data: ArrayList<Any>? = null
+
+    override fun onAttachedToRecyclerView(recyclerView: RecyclerView?) {
+        this.recylcerView = recyclerView
+    }
+
+    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView?) {
+        this.recylcerView = null
+    }
 
     override fun onBindViewHolder(holder: ViewCache?, position: Int) {
         if (data != null && data!!.size > position) {
             var catalogInfo = data!![position] as CatalogInfo
             holder?.title?.text = catalogInfo?.title
             holder?.extra?.text = catalogInfo?.extra
-            Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            if (recylcerView?.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
+                Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            } else {
+                Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform().onlyRetrieveFromCache(true)).into(holder?.image)
+            }
         }
     }
 

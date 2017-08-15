@@ -32,11 +32,15 @@ class YeskyFragment : Fragment() {
         initViewPager(recyclerView)
         var loadHtml = LoadHtml()
         loadHtml.load(null, object : OnLoadListener {
-            override fun onFinish(any: Any?) {
+            override fun onNext(any: Any?) {
                 if (any is ArrayList<*>) {
                     var array = ArrayList<Any>()
                     recyclerView.adapter = LayoutAdapter(activity, recyclerView, array)
                 }
+            }
+
+            override fun onFinish() {
+
             }
 
         })

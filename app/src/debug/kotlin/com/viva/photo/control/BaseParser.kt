@@ -9,7 +9,7 @@ import java.lang.Exception
 open class BaseParser {
 
     var doc: Document? = null
-    private var url: String? = null
+    internal var url: String? = null
 
     constructor(url: String?) {
         this.url = url
@@ -33,6 +33,10 @@ open class BaseParser {
 
     open fun parser(): ArrayList<Any>? {
         return null
+    }
+
+    open fun hasNext(): Boolean {
+        return false
     }
 
     fun clear() {

@@ -1,6 +1,5 @@
 package com.viva.photo.view.adapter
 
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -9,10 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.chenenyu.router.RouteCallback
-import com.chenenyu.router.RouteResult
 import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
@@ -42,10 +37,10 @@ class MenuCardAdapter(): RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
             if (data!!.size > position) {
                 var menuInfo = data!![position]
                 holder?.title?.text = menuInfo.title
-                Glide.with(holder?.itemView).load(menuInfo.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
-                var adapter = TitleItemAdapter()
+//                Glide.with(holder?.itemView).load(menuInfo.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+                var adapter = ViewListAdapter()
                 adapter.data = menuInfo?.item
-                holder?.recylerView?.adapter = adapter
+//                holder?.recylerView?.adapter = adapter
                 holder?.recylerView?.tag = menuInfo.url
 
                 holder?.image?.setOnClickListener {
@@ -53,7 +48,7 @@ class MenuCardAdapter(): RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
                     var url = holder?.recylerView?.tag as String
                     var bundle = Bundle()
                     bundle.putString("url", url)
-                    Router.build("catalog").with(bundle).go(holder?.itemView?.context) { state, uri, message -> LogUtils.v("ccch " + message) }
+                    Router.build("catalog").with(bundle).go(holder?.itemView?.context)
                 }
             }
         }

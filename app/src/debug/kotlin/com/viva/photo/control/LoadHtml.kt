@@ -1,6 +1,5 @@
 package com.viva.photo.control
 
-import com.viva.photo.control.ys.MainParser
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.Observer
@@ -10,44 +9,56 @@ import io.reactivex.schedulers.Schedulers
 
 class LoadHtml {
 
-    private var cancel = false
+    private var stop = false
     private var dispose: Disposable? = null
 
     fun cancel() {
-        cancel = true
+        stop = true
         dispose?.dispose()
     }
 
+    fun isStop(): Boolean {
+        return stop
+    }
+
+    private fun reset() {
+        stop = false
+        dispose = null
+    }
+
     fun load(parser: BaseParser?, onLoadListener: OnLoadListener?) {
+        reset()
         Observable.create(ObservableOnSubscribe<Any> {
             it ->
             run {
+                parser?.clear()
                 parser?.connect()
                 var result = parser?.parser()
                 if (result != null) {
                     it.onNext(result)
-                } else {
-                    it.onComplete()
                 }
+                it.onComplete()
             }
         })
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(object : Observer<Any> {
                     override fun onNext(t: Any?) {
-                        onLoadListener?.onFinish(t)
+                        onLoadListener?.onNext(t)
                     }
 
                     override fun onComplete() {
-                        onLoadListener?.onFinish(null)
+                        stop = true
+                        onLoadListener?.onFinish()
                     }
 
                     override fun onError(e: Throwable?) {
-                        onLoadListener?.onFinish(null)
+                        stop = true
+                        onLoadListener?.onFinish()
                     }
 
                     override fun onSubscribe(d: Disposable?) {
-                        if (cancel) {
+                        if (stop) {
                             d?.dispose()
                         } else {
                             dispose = d
@@ -60,5 +71,6 @@ class LoadHtml {
 }
 
 interface OnLoadListener {
-    fun onFinish(any: Any?)
+    fun onNext(any: Any?)
+    fun onFinish()
 }

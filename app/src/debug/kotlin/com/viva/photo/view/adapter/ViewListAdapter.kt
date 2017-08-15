@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
-import com.viva.photo.utils.LogUtils
 
-class TitleItemAdapter : RecyclerView.Adapter<TitleItemAdapter.ViewCache>() {
+class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
 
     var data:MutableList<MenuInfo>? = null
 

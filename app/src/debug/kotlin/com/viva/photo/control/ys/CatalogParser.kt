@@ -2,12 +2,15 @@ package com.viva.photo.control.ys
 
 import com.viva.photo.control.BaseParser
 import com.viva.photo.control.info.CatalogInfo
-import com.viva.photo.control.info.MenuInfo
-import com.viva.photo.utils.LogUtils
 
 class CatalogParser(url: String?): BaseParser(url) {
 
+    private var hasNext: Boolean = false
+
     override fun parser(): ArrayList<Any>? {
+
+        hasNext = false
+
         var array = ArrayList<Any>()
         var childLinks = doc?.select("div.lb_box")
         if (childLinks == null || childLinks?.size == 0) {
@@ -27,7 +30,23 @@ class CatalogParser(url: String?): BaseParser(url) {
                 array.add(CatalogInfo(title, url, image, extra, null))
             }
         }
+
+        childLinks = doc?.select("div.flym")
+        if (childLinks != null && childLinks.size > 0) {
+            var items = childLinks?.get(0)?.getElementsByTag("a")
+            items?.forEach {
+                i ->
+                if (i.text().contentEquals("下一页")) {
+                    hasNext = true
+                    url = "http://www.yesky.com/pic" + i.attr("href")
+                }
+            }
+        }
         return array
+    }
+
+    override fun hasNext(): Boolean {
+        return hasNext
     }
 
 }

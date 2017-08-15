@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.chenenyu.router.annotation.InjectParam
 import com.chenenyu.router.annotation.Route
 import com.viva.photo.R
+import com.viva.photo.control.BaseParser
 import com.viva.photo.control.LoadHtml
 import com.viva.photo.control.OnLoadListener
 import com.viva.photo.control.ys.CatalogParser
@@ -21,7 +22,30 @@ import com.viva.photo.view.animation.MyItemDecoration
 
 class CatalogFragment: Fragment() {
 
+    private var loadHtml: LoadHtml? = null
+    private var parser: BaseParser? = null
     var recyclerView: RecyclerView? = null
+
+    private var onLoadListener = object : OnLoadListener {
+        override fun onNext(any: Any?) {
+            if (any != null && any is ArrayList<*>) {
+                if (recyclerView?.adapter != null
+                        && (recyclerView?.adapter as CatalogAdapter).data != null) {
+                    (recyclerView?.adapter as CatalogAdapter).data?.addAll(any)
+                    recyclerView?.adapter?.notifyDataSetChanged()
+                } else {
+                    var adapter = CatalogAdapter()
+                    adapter.data = any as ArrayList<Any>
+                    recyclerView?.adapter = adapter
+                }
+            }
+        }
+
+        override fun onFinish() {
+
+        }
+
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.layout_fragment_catalog, null)
@@ -33,17 +57,9 @@ class CatalogFragment: Fragment() {
     }
 
     fun load(url: String?) {
-        var loadHtml = LoadHtml()
-        loadHtml.load(CatalogParser(url/*"http://pic.yesky.com/c/6_18332.shtml"*/), object : OnLoadListener {
-            override fun onFinish(any: Any?) {
-                if (any != null && any is ArrayList<*>) {
-                    var adapter = CatalogAdapter()
-                    adapter.data = any as ArrayList<Any>
-                    recyclerView?.adapter = adapter
-                }
-            }
-
-        })
+        loadHtml = LoadHtml()
+        parser = CatalogParser(url/*"http://pic.yesky.com/c/6_18332.shtml"*/)
+        loadHtml?.load(parser, onLoadListener)
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView?) {
@@ -51,6 +67,7 @@ class CatalogFragment: Fragment() {
         initRecyclerLayoutManager(recyclerView) // 初始化布局
         initItemDecoration(recyclerView) // 初始化装饰
         initItemAnimator(recyclerView) // 初始化动画效果
+        initScrollListener(recyclerView)
     }
 
     private fun initRecyclerLayoutManager(recyclerView: RecyclerView?) {
@@ -66,4 +83,20 @@ class CatalogFragment: Fragment() {
         recyclerView?.itemAnimator = DefaultItemAnimator() // 默认动画
     }
 
+    private fun initScrollListener(recyclerView: RecyclerView?) {
+        recyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+                when (newState) {
+                    RecyclerView.SCROLL_STATE_IDLE ->
+                    if (recyclerView != null && !recyclerView!!.canScrollVertically(1)) {
+                        if (loadHtml?.isStop() ?: false) {
+                            if (parser?.hasNext() ?: false) {
+                                loadHtml?.load(parser, onLoadListener)
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    }
 }
