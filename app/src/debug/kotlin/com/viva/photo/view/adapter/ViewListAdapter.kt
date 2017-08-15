@@ -1,33 +1,44 @@
 package com.viva.photo.view.adapter
 
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
+import com.viva.photo.utils.LogUtils
 
 class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
 
-    var data:MutableList<MenuInfo>? = null
+    var data:ArrayList<Any>? = null
 
     override fun getItemCount(): Int {
         return data?.size ?: 0
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewCache {
-        var itemView = LayoutInflater.from(parent?.context).inflate(R.layout.layout_list_item, null)
+        var itemView = View.inflate(parent?.context, R.layout.layout_list_view, null)
         var viewCache = ViewCache(itemView)
+        var layoutParams = viewCache.itemView.layoutParams
+        if (layoutParams == null) {
+            layoutParams = ViewGroup.LayoutParams(parent!!.width / 2, parent!!.height / 3)
+        } else {
+            layoutParams.width = parent!!.width / 2
+            layoutParams.height = parent!!.height / 3
+        }
+        viewCache.itemView.layoutParams = layoutParams
         return viewCache
     }
 
     override fun onBindViewHolder(holder: ViewCache?, position: Int) {
         if (data != null && data!!.size > position) {
-            var menuInfo = data!![position]
-            holder?.title?.tag = menuInfo.url
-            holder?.title?.text = menuInfo.title
-            holder?.title?.setOnClickListener {
+            var menuInfo = data!![position] as MenuInfo
+            holder?.itemView?.tag = menuInfo.url
+//            holder?.title?.text = menuInfo.title
+            Glide.with(holder?.itemView).load(menuInfo?.url).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            holder?.itemView?.setOnClickListener {
                 i ->
                 var url = i.tag as String
             }
@@ -36,10 +47,10 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
 
     class ViewCache: RecyclerView.ViewHolder {
 
-        var title: TextView? = null
+        var image: ImageView? = null
 
         constructor(itemView: View):super(itemView) {
-            title = itemView.findViewById(R.id.layout_list_item_title) as TextView
+            image = itemView.findViewById(R.id.layout_list_view_image) as ImageView
         }
 
     }

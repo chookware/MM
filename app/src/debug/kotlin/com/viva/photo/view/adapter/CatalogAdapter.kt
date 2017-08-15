@@ -1,5 +1,6 @@
 package com.viva.photo.view.adapter
 
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.CatalogInfo
 
@@ -26,12 +28,16 @@ class CatalogAdapter: RecyclerView.Adapter<CatalogAdapter.ViewCache>() {
     override fun onBindViewHolder(holder: ViewCache?, position: Int) {
         if (data != null && data!!.size > position) {
             var catalogInfo = data!![position] as CatalogInfo
+            holder?.itemView?.tag = catalogInfo?.url
             holder?.title?.text = catalogInfo?.title
             holder?.extra?.text = catalogInfo?.extra
-            if (recylcerView?.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
-                Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
-            } else {
-                Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform().onlyRetrieveFromCache(true)).into(holder?.image)
+            Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            holder?.itemView?.setOnClickListener {
+                i ->
+                var url = holder?.itemView?.tag as String
+                var bundle = Bundle()
+                bundle.putString("url", url)
+                Router.build("viewlist").with(bundle).go(holder?.itemView?.context)
             }
         }
     }

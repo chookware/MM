@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
 
-class MenuCardAdapter(): RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
+class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
 
     var data: MutableList<MenuInfo>? = null
     var parentFragment: Fragment? = null
@@ -37,10 +39,10 @@ class MenuCardAdapter(): RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
             if (data!!.size > position) {
                 var menuInfo = data!![position]
                 holder?.title?.text = menuInfo.title
-//                Glide.with(holder?.itemView).load(menuInfo.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
-                var adapter = ViewListAdapter()
+                Glide.with(holder?.itemView).load(menuInfo.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+                var adapter = ItemAdapter()
                 adapter.data = menuInfo?.item
-//                holder?.recylerView?.adapter = adapter
+                holder?.recylerView?.adapter = adapter
                 holder?.recylerView?.tag = menuInfo.url
 
                 holder?.image?.setOnClickListener {

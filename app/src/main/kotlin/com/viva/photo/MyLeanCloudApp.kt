@@ -2,6 +2,7 @@ package com.viva.photo
 
 import android.app.Application
 import com.avos.avoscloud.*
+import com.bumptech.glide.Glide
 import com.chenenyu.router.Router
 import com.viva.photo.view.activity.PushCallBackActivity
 
