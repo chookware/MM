@@ -20,7 +20,8 @@ class ViewPagerFragment: Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         simpleViewPager = view?.findViewById(R.id.layout_view_pager_contain) as SimpleViewPager
-        initSimpeViewPager(simpleViewPager)
+//        simpleViewPager?.setImageIds(intArrayOf(R.drawable.ic_launcher), null)
+//        initSimpeViewPager(simpleViewPager)
 
     }
 
@@ -33,6 +34,7 @@ class ViewPagerFragment: Fragment() {
 
     fun load(index: Int?, urlArray: Array<String>?) {
         simpleViewPager?.setImageUrls(urlArray) { image, url -> Glide.with(activity).load(url).into(image) }
+        initSimpeViewPager(simpleViewPager)
         simpleViewPager?.setCurrentItem(index!!)
     }
 

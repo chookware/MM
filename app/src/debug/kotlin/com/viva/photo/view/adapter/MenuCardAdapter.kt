@@ -1,7 +1,9 @@
 package com.viva.photo.view.adapter
 
+import android.icu.util.Measure
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -15,7 +17,7 @@ import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
 
-class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
+class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>(), View.OnClickListener {
 
     companion object {
         private val TYPE_VIEW_1 = 0
@@ -30,13 +32,28 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewCache {
         var layoutId = getLayoutID(viewType)
         var viewCache = ViewCache(View.inflate(parent!!.context, layoutId, null))
+
+        var text = viewCache?.itemView?.findViewWithTag("text1")
+        text?.measure(parent.width, parent.height)
+        var h = 0
+        if (text != null) {
+            h = text!!.measuredHeight * 10
+        }
+
+        if (viewCache?.itemView is CardView) {
+            var cardVew = viewCache?.itemView as CardView
+            h += cardVew.radius.toInt() * 2
+            h += cardVew.cardElevation.toInt() * 2
+        }
+
         var layoutParams = viewCache.itemView.layoutParams
         if (layoutParams == null) {
-            layoutParams = ViewGroup.LayoutParams(parent.width, parent.height / 2)
+            layoutParams = ViewGroup.LayoutParams(parent.width, parent.height / 4 + h)
         } else {
             layoutParams.width = parent.width
-            layoutParams.height = parent.height / 2
+            layoutParams.height = parent.height / 4 + h
         }
+
         viewCache.itemView.layoutParams = layoutParams
         return viewCache
     }
@@ -71,15 +88,26 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
                     var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_2) as ImageView
                     var image3 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_3) as ImageView
 
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).into(image2)
-                    Glide.with(holder?.itemView?.context).load(array?.get(2)?.image).into(image3)
+                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
+                    image3.setTag(R.id.tag_first, array?.get(2)?.url)
 
-                    var index = 0
+                    image1.setOnClickListener(this)
+                    image2.setOnClickListener(this)
+                    image3.setOnClickListener(this)
+
+                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+                    Glide.with(holder?.itemView?.context).load(array?.get(2)?.image).apply(RequestOptions.centerCropTransform()).into(image3)
+
+                    var index = 1
                     var child = holder?.itemView?.findViewWithTag("text$index")
                     while (child != null) {
                         var text = child as TextView
-                        text.text = array?.get(index + 2 + 1)?.title
+                        text.text = array?.get(index + 2)?.title
+
+                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+                        text.setOnClickListener(this)
 
                         index++
                         child = holder?.itemView?.findViewWithTag("text$index")
@@ -92,14 +120,23 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
                     var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_1) as ImageView
                     var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_2) as ImageView
 
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).into(image2)
+                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
 
-                    var index = 0
+                    image1.setOnClickListener(this)
+                    image2.setOnClickListener(this)
+
+                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+
+                    var index = 1
                     var child = holder?.itemView?.findViewWithTag("text$index")
                     while (child != null) {
                         var text = child as TextView
-                        text.text = array?.get(index + 2 + 1)?.title
+                        text.text = array?.get(index + 2)?.title
+
+                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+                        text.setOnClickListener(this)
 
                         index++
                         child = holder?.itemView?.findViewWithTag("text$index")
@@ -112,14 +149,23 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
                     var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_1) as ImageView
                     var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_2) as ImageView
 
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).into(image2)
+                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
 
-                    var index = 0
+                    image1.setOnClickListener(this)
+                    image2.setOnClickListener(this)
+
+                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+
+                    var index = 1
                     var child = holder?.itemView?.findViewWithTag("text$index")
                     while (child != null) {
                         var text = child as TextView
-                        text.text = array?.get(index + 2 + 1)?.title
+                        text.text = array?.get(index + 2)?.title
+
+                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+                        text.setOnClickListener(this)
 
                         index++
                         child = holder?.itemView?.findViewWithTag("text$index")
@@ -157,6 +203,15 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>() {
             TYPE_VIEW_4 -> layoutId = R.layout.layout_menu_card_type_4
         }
         return layoutId
+    }
+
+    override fun onClick(v: View?) {
+        if (v?.getTag(R.id.tag_first) is String) {
+            var url = v?.getTag(R.id.tag_first) as String
+            var bundle = Bundle()
+            bundle.putString("url", url)
+            Router.build("viewlist").with(bundle).go(v?.context)
+        }
     }
 
     fun destroy() {

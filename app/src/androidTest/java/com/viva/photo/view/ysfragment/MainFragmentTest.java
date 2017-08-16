@@ -23,7 +23,7 @@ public class MainFragmentTest {
         MainParser mainParser = new MainParser();
         mainParser.connect();
         ArrayList<Object> array = mainParser.parser();
-        System.out.println("ccck " + array.toString());
+//        System.out.println("ccck " + array.toString());
     }
 
 }

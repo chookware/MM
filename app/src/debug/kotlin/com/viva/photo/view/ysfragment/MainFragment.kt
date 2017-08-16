@@ -42,8 +42,8 @@ class MainFragment(): Fragment() {
         loadHtml.load(MainParser(), object : OnLoadListener {
             override fun onNext(any: Any?) {
                 if (any is MutableList<*>) {
-//                    menuAdapter?.data = any as MutableList<MenuInfo>
-//                    menuAdapter?.notifyDataSetChanged()
+                    menuAdapter?.data = any as MutableList<MutableList<MenuInfo>>
+                    menuAdapter?.notifyDataSetChanged()
                 }
              }
 

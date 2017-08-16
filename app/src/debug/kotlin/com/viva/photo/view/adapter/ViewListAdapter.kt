@@ -43,9 +43,14 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
             holder?.itemView?.setOnClickListener {
                 i ->
 //                var url = i.tag as String
+                var urlArray = arrayOfNulls<String>(data!!.size)
+                data?.forEachIndexed { index, any ->
+                    var info = any as MenuInfo
+                    urlArray[index] = info.url
+                }
                 var bundle = Bundle()
                 bundle.putInt("index", position)
-                bundle.putStringArray("urlArray", data?.toArray() as Array<out String>?)
+                bundle.putStringArray("urlArray", urlArray)
                 Router.build("viewpager").with(bundle).go(holder?.itemView?.context)
             }
         }
