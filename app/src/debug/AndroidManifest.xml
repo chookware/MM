@@ -11,5 +11,6 @@
 
         <activity android:name=".view.activity.CatalogActivity"/>
         <activity android:name=".view.activity.ViewListActivity"/>
+        <activity android:name=".view.activity.ViewPagerActivity"/>
     </application>
 </manifest>

@@ -14,9 +14,6 @@ import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
 import com.viva.photo.R
 import com.viva.photo.control.LoadHtml
 import com.viva.photo.control.OnLoadListener
-import com.viva.photo.control.info.MenuInfo
-import com.viva.photo.utils.LogUtils
-import com.viva.photo.view.adapter.LayoutAdapter
 import com.viva.photo.view.animation.MyItemDecoration
 
 
@@ -35,7 +32,7 @@ class YeskyFragment : Fragment() {
             override fun onNext(any: Any?) {
                 if (any is ArrayList<*>) {
                     var array = ArrayList<Any>()
-                    recyclerView.adapter = LayoutAdapter(activity, recyclerView, array)
+//                    recyclerView.adapter = LayoutAdapter(activity, recyclerView, array)
                 }
             }
 

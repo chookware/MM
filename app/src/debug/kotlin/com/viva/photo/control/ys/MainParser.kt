@@ -9,7 +9,7 @@ class MainParser : BaseParser {
 
     constructor():super("http://pic.yesky.com")
 
-    override fun parser(): ArrayList<Any>? {
+    /*override fun parser(): ArrayList<Any>? {
         var links = doc?.select("ul.nav_left")?.get(0)?.getElementsByTag("a")
         var array = arrayListOf<Any>()
         if (links != null) {
@@ -41,6 +41,27 @@ class MainParser : BaseParser {
                         e.printStackTrace()
                     }
                 }
+                array.add(menuInfo)
+            }
+        }
+        return array
+    }*/
+
+    override fun parser(): ArrayList<Any>? {
+
+        /**
+         * card
+         */
+
+
+        /**
+         * catalog
+         */
+        var links = doc?.select("ul.nav_left")?.get(0)?.getElementsByTag("a")
+        var array = arrayListOf<Any>()
+        if (links != null) {
+            for (element in links) {
+                var menuInfo = MenuInfo(element?.text(), element?.attr("href"), null, null)
                 array.add(menuInfo)
             }
         }

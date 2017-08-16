@@ -1,11 +1,13 @@
 package com.viva.photo.view.adapter
 
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
@@ -35,12 +37,16 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
     override fun onBindViewHolder(holder: ViewCache?, position: Int) {
         if (data != null && data!!.size > position) {
             var menuInfo = data!![position] as MenuInfo
-            holder?.itemView?.tag = menuInfo.url
+//            holder?.itemView?.tag = menuInfo.url
 //            holder?.title?.text = menuInfo.title
             Glide.with(holder?.itemView).load(menuInfo?.url).apply(RequestOptions.centerCropTransform()).into(holder?.image)
             holder?.itemView?.setOnClickListener {
                 i ->
-                var url = i.tag as String
+//                var url = i.tag as String
+                var bundle = Bundle()
+                bundle.putInt("index", position)
+                bundle.putStringArray("urlArray", data?.toArray() as Array<out String>?)
+                Router.build("viewpager").with(bundle).go(holder?.itemView?.context)
             }
         }
     }
