@@ -28,31 +28,30 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>(), View.O
 
     var data: MutableList<MutableList<MenuInfo>>? = null
     var parentFragment: Fragment? = null
+    var imageGroupHeight = 0
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewCache {
         var layoutId = getLayoutID(viewType)
         var viewCache = ViewCache(View.inflate(parent!!.context, layoutId, null))
 
-        var text = viewCache?.itemView?.findViewWithTag("text1")
-        text?.measure(parent.width, parent.height)
-        var h = 0
-        if (text != null) {
-            h = text!!.measuredHeight * 10
-        }
-
-        if (viewCache?.itemView is CardView) {
-            var cardVew = viewCache?.itemView as CardView
-            h += cardVew.radius.toInt() * 2
-            h += cardVew.cardElevation.toInt() * 2
-        }
+//        var text = viewCache?.itemView?.findViewWithTag("text1")
+//        text?.measure(parent.width, parent.height)
+//        var h = 0
+//        if (text != null) {
+//            h = text!!.measuredHeight * 10
+//        }
+//
+//        if (viewCache?.itemView is CardView) {
+//            var cardVew = viewCache?.itemView as CardView
+//            h += cardVew.radius.toInt() * 2
+//            h += cardVew.cardElevation.toInt() * 2
+//        }
 
         var layoutParams = viewCache.itemView.layoutParams
         if (layoutParams == null) {
-            layoutParams = ViewGroup.LayoutParams(parent.width, parent.height / 4 + h)
-        } else {
-            layoutParams.width = parent.width
-            layoutParams.height = parent.height / 4 + h
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
+        imageGroupHeight = parent?.height / 4
 
         viewCache.itemView.layoutParams = layoutParams
         return viewCache
@@ -79,6 +78,14 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>(), View.O
                 }
             }
         }*/
+
+        var layoutParams = holder?.itemView?.findViewWithTag("image")?.layoutParams
+        if (layoutParams == null) {
+            layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        }
+        layoutParams?.height = imageGroupHeight
+
+        holder?.itemView?.findViewWithTag("image")?.layoutParams = layoutParams
 
         when (position) {
             TYPE_VIEW_1 -> {
