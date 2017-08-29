@@ -67,8 +67,8 @@ class MainParser : BaseParser {
             }
             childs = links?.get(1)?.select("dt>a")
             if (childs != null && childs!!.size > 0) {
-                card2.add(MenuInfo(null, childs?.get(0)?.attr("href"), childs?.get(0)?.getElementsByTag("img")?.attr("src"), null))
-                card2.add(MenuInfo(null, childs?.get(1)?.attr("href"), childs?.get(1)?.getElementsByTag("img")?.attr("src"), null))
+                card2.add(MenuInfo(null, childs?.get(0)?.attr("href"), childs?.get(1)?.getElementsByTag("img")?.attr("src"), null))
+                card2.add(MenuInfo(null, childs?.get(1)?.attr("href"), childs?.get(2)?.getElementsByTag("img")?.attr("src"), null))
             }
         }
 
@@ -102,7 +102,6 @@ class MainParser : BaseParser {
                 i ->
                 card3.add(MenuInfo(i.attr("title"), i.attr("href"), null, null))
             }
-            LogUtils.v("ccc card3: " + card3)
         }
 
         /**
