@@ -1,11 +1,13 @@
 package com.viva.photo.view.adapter
 
 import android.icu.util.Measure
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Html
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -89,98 +91,154 @@ class MenuCardAdapter: RecyclerView.Adapter<MenuCardAdapter.ViewCache>(), View.O
 
         when (position) {
             TYPE_VIEW_1 -> {
-                if (data?.get(0) != null) {
-                    var array = data?.get(0) as MutableList<MenuInfo>
-                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_1) as ImageView
-                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_2) as ImageView
-                    var image3 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_3) as ImageView
-
-                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
-                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
-                    image3.setTag(R.id.tag_first, array?.get(2)?.url)
-
-                    image1.setOnClickListener(this)
-                    image2.setOnClickListener(this)
-                    image3.setOnClickListener(this)
-
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
-                    Glide.with(holder?.itemView?.context).load(array?.get(2)?.image).apply(RequestOptions.centerCropTransform()).into(image3)
-
-                    var index = 1
-                    var child = holder?.itemView?.findViewWithTag("text$index")
-                    while (child != null) {
-                        var text = child as TextView
-                        text.text = array?.get(index + 2)?.title
-
-                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
-                        text.setOnClickListener(this)
-
-                        index++
-                        child = holder?.itemView?.findViewWithTag("text$index")
-                    }
-                }
+//                if (data?.get(0) != null) {
+//                    var array = data?.get(0) as MutableList<MenuInfo>
+//                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_1) as ImageView
+//                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_2) as ImageView
+//                    var image3 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_1_image_3) as ImageView
+//
+//                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+//                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
+//                    image3.setTag(R.id.tag_first, array?.get(2)?.url)
+//
+//                    image1.setOnClickListener(this)
+//                    image2.setOnClickListener(this)
+//                    image3.setOnClickListener(this)
+//
+//                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+//                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+//                    Glide.with(holder?.itemView?.context).load(array?.get(2)?.image).apply(RequestOptions.centerCropTransform()).into(image3)
+//
+//                    var index = 1
+//                    var child = holder?.itemView?.findViewWithTag("text$index")
+//                    while (child != null) {
+//                        var text = child as TextView
+//                        text.text = array?.get(index + 2)?.title
+//
+//                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+//                        text.setOnClickListener(this)
+//
+//                        index++
+//                        child = holder?.itemView?.findViewWithTag("text$index")
+//                    }
+//                }
             }
             TYPE_VIEW_2 -> {
-                if (data?.get(1) != null) {
-                    var array = data?.get(1) as MutableList<MenuInfo>
-                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_1) as ImageView
-                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_2) as ImageView
-
-                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
-                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
-
-                    image1.setOnClickListener(this)
-                    image2.setOnClickListener(this)
-
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
-
-                    var index = 1
-                    var child = holder?.itemView?.findViewWithTag("text$index")
-                    while (child != null) {
-                        var text = child as TextView
-                        text.text = array?.get(index + 2)?.title
-
-                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
-                        text.setOnClickListener(this)
-
-                        index++
-                        child = holder?.itemView?.findViewWithTag("text$index")
-                    }
-                }
+//                if (data?.get(1) != null) {
+//                    var array = data?.get(1) as MutableList<MenuInfo>
+//                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_1) as ImageView
+//                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_2_image_2) as ImageView
+//
+//                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+//                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
+//
+//                    image1.setOnClickListener(this)
+//                    image2.setOnClickListener(this)
+//
+//                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+//                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+//
+//                    var index = 1
+//                    var child = holder?.itemView?.findViewWithTag("text$index")
+//                    while (child != null) {
+//                        var text = child as TextView
+//                        text.text = array?.get(index + 2)?.title
+//
+//                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+//                        text.setOnClickListener(this)
+//
+//                        index++
+//                        child = holder?.itemView?.findViewWithTag("text$index")
+//                    }
+//                }
             }
             TYPE_VIEW_3 -> {
-                if (data?.get(2) != null) {
-                    var array = data?.get(2) as MutableList<MenuInfo>
-                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_1) as ImageView
-                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_2) as ImageView
-
-                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
-                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
-
-                    image1.setOnClickListener(this)
-                    image2.setOnClickListener(this)
-
-                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
-                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
-
-                    var index = 1
-                    var child = holder?.itemView?.findViewWithTag("text$index")
-                    while (child != null) {
-                        var text = child as TextView
-                        text.text = array?.get(index + 2)?.title
-
-                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
-                        text.setOnClickListener(this)
-
-                        index++
-                        child = holder?.itemView?.findViewWithTag("text$index")
-                    }
-                }
+//                if (data?.get(2) != null) {
+//                    var array = data?.get(2) as MutableList<MenuInfo>
+//                    var image1 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_1) as ImageView
+//                    var image2 = holder?.itemView?.findViewById(R.id.layout_menu_card_type_3_image_2) as ImageView
+//
+//                    image1.setTag(R.id.tag_first, array?.get(0)?.url)
+//                    image2.setTag(R.id.tag_first, array?.get(1)?.url)
+//
+//                    image1.setOnClickListener(this)
+//                    image2.setOnClickListener(this)
+//
+//                    Glide.with(holder?.itemView?.context).load(array?.get(0)?.image).apply(RequestOptions.centerCropTransform()).into(image1)
+//                    Glide.with(holder?.itemView?.context).load(array?.get(1)?.image).apply(RequestOptions.centerCropTransform()).into(image2)
+//
+//                    var index = 1
+//                    var child = holder?.itemView?.findViewWithTag("text$index")
+//                    while (child != null) {
+//                        var text = child as TextView
+//                        text.text = array?.get(index + 2)?.title
+//
+//                        text.setTag(R.id.tag_first, array?.get(index + 2)?.url)
+//                        text.setOnClickListener(this)
+//
+//                        index++
+//                        child = holder?.itemView?.findViewWithTag("text$index")
+//                    }
+//                }
             }
             TYPE_VIEW_4 -> {
+                if (data?.get(3) != null) {
+                    var array = data?.get(3) as MutableList<MenuInfo>
+                    var label1 = holder?.itemView?.findViewWithTag("text1") as TextView
+                    var label2 = holder?.itemView?.findViewWithTag("text2") as TextView
+                    var label3 = holder?.itemView?.findViewWithTag("text3") as TextView
+                    var label4 = holder?.itemView?.findViewWithTag("text4") as TextView
+                    var label5 = holder?.itemView?.findViewWithTag("text5") as TextView
+                    var label6 = holder?.itemView?.findViewWithTag("text6") as TextView
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label1.text = Html.fromHtml("<u>" + array?.get(0)?.title + "</u>", 0)
+                    } else {
+                        label1.text = Html.fromHtml("<u>" + array?.get(0)?.title + "</u>")
 
+                    }
+                    label1.setTag(R.id.tag_first, array?.get(0)?.url)
+                    label1.setOnClickListener(this)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label2.text = Html.fromHtml("<u>" + array?.get(1)?.title + "</u>", 0)
+                    } else {
+                        label2.text = Html.fromHtml("<u>" + array?.get(1)?.title + "</u>")
+
+                    }
+                    label2.setTag(R.id.tag_first, array?.get(1)?.url)
+                    label2.setOnClickListener(this)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label3.text = Html.fromHtml("<u>" + array?.get(2)?.title + "</u>", 0)
+                    } else {
+                        label3.text = Html.fromHtml("<u>" + array?.get(2)?.title + "</u>")
+
+                    }
+                    label3.setTag(R.id.tag_first, array?.get(2)?.url)
+                    label3.setOnClickListener(this)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label4.text = Html.fromHtml("<u>" + array?.get(3)?.title + "</u>", 0)
+                    } else {
+                        label4.text = Html.fromHtml("<u>" + array?.get(3)?.title + "</u>")
+
+                    }
+                    label4.setTag(R.id.tag_first, array?.get(3)?.url)
+                    label4.setOnClickListener(this)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label5.text = Html.fromHtml("<u>" + array?.get(4)?.title + "</u>", 0)
+                    } else {
+                        label5.text = Html.fromHtml("<u>" + array?.get(4)?.title + "</u>")
+
+                    }
+                    label5.setTag(R.id.tag_first, array?.get(4)?.url)
+                    label5.setOnClickListener(this)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                        label6.text = Html.fromHtml("<u>" + array?.get(5)?.title + "</u>", 0)
+                    } else {
+                        label6.text = Html.fromHtml("<u>" + array?.get(5)?.title + "</u>")
+
+                    }
+                    label6.setTag(R.id.tag_first, array?.get(5)?.url)
+                    label6.setOnClickListener(this)
+                }
             }
         }
 

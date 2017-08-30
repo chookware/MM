@@ -1,16 +1,24 @@
 package com.viva.photo.view.adapter
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.MenuInfo
 import com.viva.photo.utils.LogUtils
+import org.w3c.dom.Text
 
 class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
 
@@ -39,7 +47,20 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
             var menuInfo = data!![position] as MenuInfo
 //            holder?.itemView?.tag = menuInfo.url
 //            holder?.title?.text = menuInfo.title
-            Glide.with(holder?.itemView).load(menuInfo?.url).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+            holder?.text?.visibility = View.VISIBLE
+            holder?.text?.setText(R.string.title_to_loading)
+            Glide.with(holder?.itemView).load(menuInfo?.url).apply(RequestOptions.centerCropTransform()).listener(object : RequestListener<Drawable> {
+                override fun onResourceReady(p0: Drawable?, p1: Any?, p2: Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+                    holder?.text?.visibility = View.INVISIBLE
+                    return false
+                }
+
+                override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
+                    holder?.text?.setText(R.string.title_to_load_fail)
+                    return false
+                }
+
+            }).into(holder?.image)
             holder?.itemView?.setOnClickListener {
                 i ->
 //                var url = i.tag as String
@@ -59,9 +80,11 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
     class ViewCache: RecyclerView.ViewHolder {
 
         var image: ImageView? = null
+        var text: TextView? = null
 
         constructor(itemView: View):super(itemView) {
             image = itemView.findViewById(R.id.layout_list_view_image) as ImageView
+            text = itemView.findViewById(R.id.layout_list_view_text) as TextView
         }
 
     }

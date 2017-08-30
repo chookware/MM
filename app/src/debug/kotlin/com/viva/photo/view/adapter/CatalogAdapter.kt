@@ -1,5 +1,6 @@
 package com.viva.photo.view.adapter
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -7,7 +8,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import com.chenenyu.router.Router
 import com.viva.photo.R
 import com.viva.photo.control.info.CatalogInfo
@@ -31,7 +36,21 @@ class CatalogAdapter: RecyclerView.Adapter<CatalogAdapter.ViewCache>() {
             holder?.itemView?.tag = catalogInfo?.url
             holder?.title?.text = catalogInfo?.title
             holder?.extra?.text = catalogInfo?.extra
-            Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).into(holder?.image)
+
+            holder?.text?.visibility = View.VISIBLE
+            holder?.text?.setText(R.string.title_to_loading)
+            Glide.with(holder?.itemView).load(catalogInfo?.image).apply(RequestOptions.centerCropTransform()).listener(object : RequestListener<Drawable>{
+                override fun onResourceReady(p0: Drawable?, p1: Any?, p2: Target<Drawable>?, p3: DataSource?, p4: Boolean): Boolean {
+                    holder?.text?.visibility = View.INVISIBLE
+                    return false
+                }
+
+                override fun onLoadFailed(p0: GlideException?, p1: Any?, p2: Target<Drawable>?, p3: Boolean): Boolean {
+                    holder?.text?.setText(R.string.title_to_load_fail)
+                    return false
+                }
+
+            }).into(holder?.image)
             holder?.itemView?.setOnClickListener {
                 i ->
                 var url = holder?.itemView?.tag as String
@@ -65,11 +84,13 @@ class CatalogAdapter: RecyclerView.Adapter<CatalogAdapter.ViewCache>() {
         var image: ImageView? = null
         var title: TextView? = null
         var extra: TextView? = null
+        var text: TextView? = null
 
         constructor(itemView: View):super(itemView) {
             title = itemView.findViewById(R.id.layout_catalog_item_title) as TextView
             extra = itemView.findViewById(R.id.layout_catalog_item_extra) as TextView
             image = itemView.findViewById(R.id.layout_catalog_item_image) as ImageView
+            text = itemView.findViewById(R.id.layout_catalog_item_text) as TextView
         }
 
     }

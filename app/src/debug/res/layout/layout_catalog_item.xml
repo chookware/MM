@@ -6,7 +6,8 @@
     <ImageView
         android:id="@+id/layout_catalog_item_image"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="#2f000000"/>
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -37,5 +38,11 @@
             android:singleLine="true"
             android:textColor="@color/white_color" />
     </FrameLayout>
+
+    <TextView
+        android:id="@+id/layout_catalog_item_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

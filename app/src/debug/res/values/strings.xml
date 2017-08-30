@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="title_more_to_know">想看更多...</string>
+    <string name="title_more_to_know"></string>
+    <string name="title_to_loading">加载中...</string>
+    <string name="title_to_load_fail">加载失败</string>
 
 </resources>
