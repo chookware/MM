@@ -61,6 +61,7 @@ class ViewListAdapter : RecyclerView.Adapter<ViewListAdapter.ViewCache>() {
                 }
 
             }).into(holder?.image)
+
             holder?.itemView?.setOnClickListener {
                 i ->
 //                var url = i.tag as String

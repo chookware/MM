@@ -21,6 +21,7 @@ class ViewListParser(url: String?): BaseParser(url) {
                 url = nextUrl
             }
         }
+        LogUtils.v("kkk " + menuInfo.url)
         var array = arrayListOf<Any>()
         array.add(menuInfo)
         return array
