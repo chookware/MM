@@ -8,7 +8,8 @@
     card_view:cardCornerRadius="@dimen/menu_item_radius"
     card_view:cardElevation="5dp"
     card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="@color/card_color">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,17 +22,23 @@
             android:orientation="horizontal"
             android:tag="image">
 
-            <ImageView
+            <com.joooonho.SelectableRoundedImageView
                 android:id="@+id/layout_menu_card_type_2_image_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_bg"
+                card_view:sriv_left_top_corner_radius="10dp" />
 
-            <ImageView
+            <com.joooonho.SelectableRoundedImageView
                 android:id="@+id/layout_menu_card_type_2_image_2"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_bg"
+                card_view:sriv_right_top_corner_radius="10dp" />
 
 
         </LinearLayout>

@@ -18,6 +18,7 @@ import com.viva.photo.view.adapter.MenuCardAdapter
 class MainFragment(): Fragment() {
 
     private var menuAdapter: MenuCardAdapter? = null
+    private var loadingView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.layout_fragment_ys, null)
@@ -27,6 +28,8 @@ class MainFragment(): Fragment() {
 
         var recyclerView = view?.findViewById(R.id.layout_fragment_sy_recyclerview) as RecyclerView
         initRecyclerView(recyclerView)
+        loadingView = view?.findViewById(R.id.cool_wait_view)
+        recyclerView?.visibility = View.INVISIBLE
     }
 
     private fun initRecyclerView(recyclerView: RecyclerView?) {
@@ -42,6 +45,8 @@ class MainFragment(): Fragment() {
         loadHtml.load(MainParser(), object : OnLoadListener {
             override fun onNext(any: Any?) {
                 if (any is MutableList<*>) {
+                    loadingView?.visibility = View.INVISIBLE
+                    recyclerView?.visibility = View.VISIBLE
                     menuAdapter?.data = any as MutableList<MutableList<MenuInfo>>
                     menuAdapter?.notifyDataSetChanged()
                 }

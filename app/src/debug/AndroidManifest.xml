@@ -2,7 +2,7 @@
     package="com.viva.photo">
 
     <application>
-        <activity android:name=".view.activity.TestedActivity">
+        <activity android:name=".view.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

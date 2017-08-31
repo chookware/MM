@@ -2,8 +2,9 @@
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/border_rectangle"
+    card_view:cardBackgroundColor="@color/card_color"
     card_view:cardCornerRadius="@dimen/menu_item_radius"
     card_view:cardElevation="5dp"
     card_view:cardPreventCornerOverlap="false"
@@ -20,11 +21,14 @@
             android:orientation="horizontal"
             android:tag="image">
 
-            <ImageView
+            <com.joooonho.SelectableRoundedImageView
                 android:id="@+id/layout_menu_card_type_1_image_1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:scaleType="fitXY"
+                android:src="@drawable/image_bg"
+                card_view:sriv_left_top_corner_radius="10dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -32,17 +36,22 @@
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <ImageView
+                <com.joooonho.SelectableRoundedImageView
                     android:id="@+id/layout_menu_card_type_1_image_2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/image_bg"
+                    card_view:sriv_right_top_corner_radius="10dp" />
 
                 <ImageView
                     android:id="@+id/layout_menu_card_type_1_image_3"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="1"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/image_bg" />
 
             </LinearLayout>
 
@@ -58,8 +67,8 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="5dp"
             android:divider="@drawable/divider_menu_item"
-            android:showDividers="middle"
             android:orientation="vertical"
+            android:showDividers="middle"
             android:tag="contain">
 
             <TextView
