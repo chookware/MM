@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border_rectangle"
+    card_view:cardBackgroundColor="#FFC0CB"
     card_view:cardCornerRadius="@dimen/menu_item_radius"
     card_view:cardElevation="5dp"
     card_view:cardPreventCornerOverlap="false"
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <LinearLayout
@@ -29,7 +29,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="text1" />
+                android:tag="text1"
+                android:textColor="@color/black_color"/>
 
             <View
                 android:layout_width="0dp"
@@ -39,7 +40,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="text2" />
+                android:tag="text2"
+                android:textColor="@color/black_color"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="text3"
+                android:textColor="@color/black_color"/>
 
             <View
                 android:layout_width="0dp"
@@ -55,15 +68,6 @@
             android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:tag="text3" />
 
             <View
                 android:layout_width="0dp"
@@ -73,19 +77,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="text4" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:tag="text4"
+                android:textColor="@color/black_color"/>
 
             <View
                 android:layout_width="0dp"
@@ -95,7 +88,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="text5" />
+                android:tag="text5"
+                android:textColor="@color/black_color"/>
 
             <View
                 android:layout_width="0dp"
@@ -105,7 +99,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:tag="text6" />
+                android:tag="text6"
+                android:textColor="@color/black_color"/>
 
             <View
                 android:layout_width="0dp"

@@ -7,7 +7,8 @@
     card_view:cardCornerRadius="@dimen/menu_item_radius"
     card_view:cardElevation="5dp"
     card_view:cardPreventCornerOverlap="false"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    card_view:cardBackgroundColor="#FFDAB9">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -30,11 +31,16 @@
                 card_view:sriv_left_top_corner_radius="10dp"
                 card_view:sriv_right_top_corner_radius="10dp" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
             <ImageView
                 android:id="@+id/layout_menu_card_type_3_image_2"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:src="@drawable/image_bg"/>
 
 
         </LinearLayout>
@@ -56,32 +62,38 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text1" />
+                android:tag="text1"
+                android:textColor="@color/black_color"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text2" />
+                android:tag="text2"
+                android:textColor="@color/black_color"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text3" />
+                android:tag="text3"
+                android:textColor="@color/black_color"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text4" />
+                android:tag="text4"
+                android:textColor="@color/black_color"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text5" />
+                android:tag="text5"
+                android:textColor="@color/black_color"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:tag="text6" />
+                android:tag="text6"
+                android:textColor="@color/black_color"/>
 
         </LinearLayout>
 
